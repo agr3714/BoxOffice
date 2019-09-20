@@ -36,10 +36,10 @@ public class BoxOffice {
         theater.addScreen(s4);
         theater.addScreen(s5);
 
-        int curr = 0;
+        int curr = 0; // tracks current menu
         String choice = "5";
         Scanner scanner = new Scanner(System.in);
-     // Start of I/O
+     // Start while loop to handle UI
        while (curr != -1 ) {
 
            if (choice.equals("C") || curr == 1){ //change movies
@@ -55,7 +55,7 @@ public class BoxOffice {
                } else{
                    try {
                        int index = Integer.parseInt(choice);
-                       if (index < 6) {
+                       if (index < 6 && index > 0) {
                            String newMovie;
                            System.out.print("Please enter new movie: ");
                            newMovie = scanner.nextLine();
@@ -86,20 +86,24 @@ public class BoxOffice {
                    choice = scanner.nextLine();
                    try {
                        int index = Integer.parseInt(choice);
-                       if (index < 6) {
+                       if (index < 6 && index > 0) {
                            System.out.println(theater.screens[index - 1].getMovie_name() +
                                    " has " + theater.screens[index - 1].getNum_tickets() + " tickets available.");
                            System.out.print("How many tickets would you like to purchase for " +
                                    theater.screens[index - 1].getMovie_name() + "? ");
                            choice = scanner.nextLine();
                            int tickets = Integer.parseInt(choice);
+                           if (tickets > 0) {
                            theater.screens[index - 1].buy_tickets(tickets);
                            System.out.println();
+                         } else {
+                           System.out.println("Not a vailid amount.");
+                         }
                        } else {
-                           System.out.println("Not a valid Screen number");
+                           System.out.println("Not a valid Screen number.");
                        }
                    } catch (NumberFormatException e){
-                       System.out.println("Not a valid ticket amount.");
+                       System.out.println("Not a valid number.");
                    }
                }
                if (choice.equals("E")){ // end day
